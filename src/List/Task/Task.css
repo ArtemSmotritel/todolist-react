@@ -1,90 +1,90 @@
 .task {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  
-    width: 600px;
-    background-color: white;
-    border-radius: 25px;
-    padding: 20px 0;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 
-    font: normal normal 400 27px/32px "Public Sans", sans-serif;
-  }
-  
-  .task_done {
-    display: none;
-  }
-  
-  .task__date,
-  .task__status,
-  .task__description {
-    padding: 0 30px;
-  }
-  
-  .task__date {
-    margin: 0;
-  }
-  
-  .task__date_overdue {
-    color: #be3144;
-  }
-  
-  .task__name {
-    font: normal normal 600 150%/100% "Kufam", sans-serif;
-  }
-  
-  .task__status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  
-    padding-top: 10px;
-    padding-right: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .task__checkbox {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-  }
-  
-  .task_done > .task__status > .task__name {
-    color: #9ea3a9;
-    text-decoration: line-through;
-  }
-  
-  .task_done > .task__date {
-    color: #303841;
-  }
-  
-  .task__delete {
-    position: absolute;
-    top: 0px;
-    left: 550px;
-    width: 50px;
-    height: 50px;
-    transition: width 0.2s, height 0.2s, top 0.2s;
-  }
-  
-  .task__delete:hover {
-    cursor: pointer;
-    top: -5px;
-    width: 55px;
-    height: 55px;
-  }
-  
-  .task__description {
-    margin: 0;
-    max-height: 50px;
-    overflow: hidden;
-    color: #565a60;
-    transition: max-height 1s ease-in-out;
-  }
-  
-  .task__description:hover {
-    max-height: 300px;
-  }
+  width: 600px;
+  background-color: white;
+  border-radius: 25px;
+  padding: 20px 0;
+  position: relative;
+
+  font: normal normal 400 27px/32px "Public Sans", sans-serif;
+}
+
+.task_done {
+  display: none;
+}
+
+.task__date,
+.task__status,
+.task__description {
+  padding: 0 30px;
+}
+
+.task__date {
+  margin: 0;
+}
+
+.task__date_overdue {
+  color: #be3144;
+}
+
+.task__name {
+  font: normal normal 600 150%/100% "Kufam", sans-serif;
+}
+
+.task__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-top: 10px;
+  padding-right: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.task__checkbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.task_done > .task__status > .task__name {
+  color: #9ea3a9;
+  text-decoration: line-through;
+}
+
+.task_done > .task__date {
+  color: #303841;
+}
+
+.task__delete {
+  position: absolute;
+  top: 0px;
+  left: 550px;
+  width: 50px;
+  height: 50px;
+  transition: width 0.2s, height 0.2s, top 0.2s;
+}
+
+.task__delete:hover {
+  cursor: pointer;
+  top: -5px;
+  width: 55px;
+  height: 55px;
+}
+
+.task__description {
+  margin: 0;
+  max-height: 50px;
+  overflow: hidden;
+  color: #565a60;
+  transition: max-height 1s ease-in-out;
+}
+
+.task__description:hover {
+  max-height: 300px;
+}

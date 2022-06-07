@@ -1,13 +1,16 @@
 .list {
-  margin: 20px auto;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
+  /* float: right; */
+  margin: 0 auto 20px auto;
   background-color: #d3d6db;
   border-radius: 25px;
   padding: 15px;
-  width: 1000px;
+  width: 100%;
+  box-sizing: border-box;
+  
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  gap: 20px;
 }
 
 .list_show-done .task_done {
@@ -19,4 +22,11 @@
 
   color: #303841;
   margin: 0;
+}
+
+.list__tasks {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  gap: 20px;
 }
