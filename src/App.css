@@ -9,3 +9,7 @@ body {
   background-color: #3a4750;
   color: #303841;
 }
+
+body {
+  padding: 0 50px;  
+}
