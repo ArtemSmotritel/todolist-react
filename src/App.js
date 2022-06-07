@@ -1,9 +1,13 @@
-import './App.css';
-import NewTaskForm from './NewTaskForm/NewTaskForm';
+import "./App.css";
+import List from "./List/List";
+import NewTaskForm from "./NewTaskForm/NewTaskForm";
 
 function App() {
   return (
-    <NewTaskForm />
+    <>
+      <List />
+      <NewTaskForm />
+    </>
   );
 }
 

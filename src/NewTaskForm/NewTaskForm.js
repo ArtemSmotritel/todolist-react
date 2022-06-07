@@ -1,4 +1,4 @@
-import removeImg from '../remove.png';
+import removeImg from './remove.png';
 import './NewTaskForm.css'; 
 import React from "react";
 
