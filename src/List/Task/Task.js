@@ -2,15 +2,6 @@ import React from "react";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
 
-const task = {
-  id: 1,
-  name: "To eat in a restaurant lorem",
-  description: "to eat something really tasty",
-  done: true,
-  due_date: new Date(),
-  list_id: 1,
-};
-
 const isOverdue = (dueDateStringOrDate) => {
   const today = new Date();
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
@@ -32,6 +23,7 @@ const formatDate = (dueDateStringOrDate) => {
 };
 
 export default function Task(params) {
+  const { task } = params;
   const dueDateClass = "task__due-date" + isOverdue(task.due_date);
   return (
     <section className="task" id={task.id}>
