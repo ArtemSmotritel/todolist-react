@@ -1,11 +1,10 @@
 .list {
-  margin: 20px auto;
   background-color: #d3d6db;
   border-radius: 25px;
   padding: 15px;
-  width: 100%;
   box-sizing: border-box;
-  
+  height: 100%;
+
   display: flex;
   align-items: center;
   flex-flow: column nowrap;
@@ -17,7 +16,7 @@
 }
 
 .list__name {
-  font: normal normal 800 200%/200% "Fira Sans", sans-serif;
+  font: normal normal 600 200%/120% "Kufam", sans-serif;
 
   color: #303841;
   margin: 0;

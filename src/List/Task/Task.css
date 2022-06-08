@@ -9,8 +9,6 @@
   border-radius: 25px;
   padding: 20px 0;
   position: relative;
-
-  font: normal normal 400 27px/32px "Public Sans", sans-serif;
 }
 
 .task_done {
@@ -32,7 +30,7 @@
 }
 
 .task__name {
-  font: normal normal 600 150%/100% "Kufam", sans-serif;
+  font: normal normal 600 150%/120% "Kufam", sans-serif;
 }
 
 .task__status {
