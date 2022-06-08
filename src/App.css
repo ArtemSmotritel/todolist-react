@@ -4,12 +4,30 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: monospace;
+  font: normal normal 400 25px/30px monospace;
 
   background-color: #3a4750;
   color: #303841;
 }
 
 body {
-  padding: 0 50px;  
+  padding: 20px 50px;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
 }

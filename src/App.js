@@ -7,8 +7,10 @@ function App() {
   return (
     <>
       <Sidebar />
-      <List />
-      <NewTaskForm />
+      <main>
+        <List />
+        <NewTaskForm />
+      </main>
     </>
   );
 }
