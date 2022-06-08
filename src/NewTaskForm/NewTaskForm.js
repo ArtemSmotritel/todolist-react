@@ -1,5 +1,5 @@
-import removeImg from './remove.png';
-import './NewTaskForm.css'; 
+import removeImg from "./remove.png";
+import "./NewTaskForm.css";
 import React from "react";
 
 export default function Form(params) {
@@ -10,18 +10,40 @@ export default function Form(params) {
         alt="hide-form button"
         className="add-task-form__hide-form"
       />
-      <label htmlFor="task-name" className="add-task-form__name-label">
-        Name
-      </label>
-      <input
-        type="text"
-        name="name"
-        required
-        id="task-name"
-        placeholder="task name"
-        className="add-task-form__name-field"        
-      />
-      <label htmlFor="task-description" className="add-task-form__description-label">
+      <div className="add-task-form__container">
+        <div className="add-task-form__name-container">
+          <label htmlFor="task-name" className="add-task-form__name-label">
+            Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            required
+            id="task-name"
+            placeholder="task name"
+            className="add-task-form__name-field"
+          />
+        </div>
+        <div className="add-task-form__date-container">
+          <label
+            htmlFor="task-due-date"
+            className="add-task-form__due-date-label"
+          >
+            Due date
+          </label>
+          <input
+            name="due_date"
+            type="date"
+            id="task-due-date"
+            className="add-task-form__due-date-field"
+          />
+        </div>
+      </div>
+
+      <label
+        htmlFor="task-description"
+        className="add-task-form__description-label"
+      >
         Description
       </label>
       <textarea
@@ -30,16 +52,6 @@ export default function Form(params) {
         className="add-task-form__description-field"
         placeholder="task description"
       ></textarea>
-
-      <label htmlFor="task-due-date" className="add-task-form__due-date-label">
-        Due date
-      </label>
-      <input
-        name="due_date"
-        type="date"
-        id="task-due-date"
-        className="add-task-form__due-date-field"        
-      />
 
       <button type="submit" className="add-task-form__button">
         Add

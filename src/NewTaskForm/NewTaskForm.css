@@ -1,17 +1,13 @@
 .add-task-form {
   position: relative;
-  margin: auto;
   z-index: 3;
   background-color: white;
-  width: 100%;
   padding: 15px;
   border-radius: 25px;
   box-sizing: border-box;
-  
+
   display: flex;
   flex-direction: column;
-
-  font: normal normal 400 27px/32px "Public Sans", sans-serif;
 }
 
 .add-task-form__hide-form {
@@ -34,23 +30,37 @@
   display: flex;
 }
 
-.add-task-form > input,
-.add-task-form > textarea {
+.add-task-form input,
+.add-task-form textarea {
   margin-bottom: 15px;
-  font: normal normal 400 27px/32px "Public Sans", sans-serif;
-}
-
-.add-task-form > label {
-  font: normal normal 600 150%/100% "Kufam", sans-serif;
-}
-
-.add-task-form > input {
   border-radius: 10px;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.add-task-form label {
+  font: normal normal 600 150%/120% "Kufam", sans-serif;
+  /* margin-right: 7px; */
+}
+
+.add-task-form__container {
+  justify-content: space-between;
+  display: flex;
+  gap: 20px;
+}
+
+.add-task-form__date-container,
+.add-task-form__name-container {
+  width: 100%;
+}
+
+.add-task-form__container input {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .add-task-form__description-field {
   min-height: 100px;
-  border-radius: 10px;
   padding: 4px;
 }
 
