@@ -13,7 +13,7 @@
 }
 
 .task_done {
-  display: none;
+  /* display: none; */
 }
 
 .task__date,
@@ -51,12 +51,12 @@
   cursor: pointer;
 }
 
-.task_done > .task__status > .task__name {
+.task_done .task__name {
   color: #9ea3a9;
   text-decoration: line-through;
 }
 
-.task_done > .task__date {
+.task_done .task__due-date {
   color: #303841;
 }
 

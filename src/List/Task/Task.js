@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
 
@@ -16,23 +17,33 @@ const formatDate = (dueDateStringOrDate) => {
 
   let dateFormmated = dueDate
     ? ": " + Intl.DateTimeFormat("en-US").format(dueDate)
-    : " is not set";
+    : "";
 
   return dateFormmated;
 };
 
 export default function Task(params) {
-  const { task, onDelete } = params;
-  const dueDateClass = "task__due-date" + isOverdue(task.due_date);
+  const { task, onDelete, onCheck } = params,
+    [check, setCheck] = useState(task.done);
+
+  let dueDateClass = "task__due-date" + isOverdue(task.due_date),
+    taskClass = "task" + (check ? " task_done" : "");
 
   const handleDelete = (e) => {
-    const element = e.target.closest(".task");
-    onDelete(element.id);
-    element.remove();
+    const taskElement = e.target.closest(".task");
+    onDelete(+taskElement.id);
+    taskElement.remove();
+  };
+
+  const handleCheck = (e) => {
+    const newDone = e.target.checked;
+    const taskId = e.target.closest(".task").id;
+    setCheck(newDone);
+    onCheck(+taskId);
   };
 
   return (
-    <section className="task" id={task.id}>
+    <section className={taskClass} id={task.id}>
       <img
         onClick={handleDelete}
         src={deleteImg}
@@ -45,6 +56,8 @@ export default function Task(params) {
           name="done"
           className="task__checkbox"
           id="task-1"
+          onChange={handleCheck}
+          checked={check}
         ></input>
         <label className="task__name" htmlFor="task-1">
           {task.name}

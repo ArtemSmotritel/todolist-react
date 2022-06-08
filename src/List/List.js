@@ -11,6 +11,14 @@ const tasks = [
     name: "To eat in a restaurant",
     description: "to eat something really tasty",
     done: true,
+    due_date: yesterday,
+    list_id: 1,
+  },
+  {
+    id: 6,
+    name: "To run",
+    description: "to run away from",
+    done: false,
     due_date: today,
     list_id: 1,
   },
@@ -48,13 +56,18 @@ function onDelete(id) {
   tasks.splice(index, 1);
 }
 
+function onCheck(id) {
+  let task = tasks.find((t) => t.id === id);
+  task.done = !task.done;
+}
+
 export default function List(params) {
   return (
     <section className="list">
       <h3 className="list__name">Undone tasks</h3>
       <section className="list__tasks">
         {tasks.map((t) => (
-          <Task task={t} onDelete={onDelete} />
+          <Task task={t} onDelete={onDelete} onCheck={onCheck} />
         ))}
       </section>
     </section>
