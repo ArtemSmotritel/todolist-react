@@ -3,7 +3,8 @@
   border-radius: 25px;
   padding: 15px;
   box-sizing: border-box;
-  height: 100%;
+  height: fit-content;
+  overflow-y: scroll;
 
   display: flex;
   align-items: center;
