@@ -1,4 +1,3 @@
-import React from "react";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
 
@@ -23,11 +22,19 @@ const formatDate = (dueDateStringOrDate) => {
 };
 
 export default function Task(params) {
-  const { task } = params;
+  const { task, onDelete } = params;
   const dueDateClass = "task__due-date" + isOverdue(task.due_date);
+
+  const handleDelete = (e) => {
+    const element = e.target.closest(".task");
+    onDelete(element.id);
+    element.remove();
+  };
+
   return (
     <section className="task" id={task.id}>
       <img
+        onClick={handleDelete}
         src={deleteImg}
         alt="a trash can to delete the task"
         className="task__delete"
