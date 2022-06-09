@@ -56,7 +56,8 @@ const tasks = [
 
 function App() {
   const [list, setList] = useState(tasks),
-    [showDone, setShowDone] = useState(false);
+    [showDone, setShowDone] = useState(false),
+    [title, setTitle] = useState("Undone tasks");
 
   const onListIdChange = (id) => {
     const listToDisplay = tasks.filter((t) => t.list_id === id);
@@ -64,6 +65,8 @@ function App() {
   };
 
   const onToggleDoneTasks = (newShowDone) => {
+    const newTitle = newShowDone ? "All tasks" : "Undone tasks";
+    setTitle(newTitle);
     setShowDone(newShowDone);
   };
 
@@ -88,6 +91,7 @@ function App() {
       <main>
         <List
           list={list}
+          title={title}
           onTaskDelete={onTaskDelete}
           onTaskCheck={onTaskCheck}
           showDone={showDone}

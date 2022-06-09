@@ -1,4 +1,5 @@
 import React from "react";
+import SectionHeader from "../SharedComponents/SectionHeader";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
@@ -28,7 +29,7 @@ export default function Sidebar(params) {
           Show all tasks
         </label>
       </div>
-      <h2 className="sidebar__section-header">Your lists</h2>
+      <SectionHeader title={'Your lists'} />
       <ul className="list-of-lists">
         <li
           className="list-of-lists__item"
