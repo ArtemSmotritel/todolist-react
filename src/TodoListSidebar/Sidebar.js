@@ -2,14 +2,15 @@ import React from "react";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
-  const { onListIdChange } = params;
-  
+  const { onListIdChange, onToggleDoneTasks } = params;
+
   const handleCheck = (e) => {
-    console.log("changed");
+    const showAllTasks = e.target.checked;
+    onToggleDoneTasks(showAllTasks);
   };
 
   const handleListChange = (e) => {
-    const id = +e.target.id.split('-')[1];
+    const id = +e.target.id.split("-")[1];
     onListIdChange(id);
   };
 
@@ -29,10 +30,18 @@ export default function Sidebar(params) {
       </div>
       <h2 className="sidebar__section-header">Your lists</h2>
       <ul className="list-of-lists">
-        <li className="list-of-lists__item" id="list-1" onClick={handleListChange}>
+        <li
+          className="list-of-lists__item"
+          id="list-1"
+          onClick={handleListChange}
+        >
           Easy tasks
         </li>
-        <li className="list-of-lists__item" id="list-2" onClick={handleListChange}>
+        <li
+          className="list-of-lists__item"
+          id="list-2"
+          onClick={handleListChange}
+        >
           Hard tasks
         </li>
       </ul>

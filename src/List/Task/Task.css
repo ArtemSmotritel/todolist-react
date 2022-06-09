@@ -13,7 +13,7 @@
 }
 
 .task_done {
-  /* display: none; */
+  display: none;
 }
 
 .task__date,

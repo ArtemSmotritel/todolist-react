@@ -55,30 +55,43 @@ const tasks = [
 ];
 
 function App() {
-  const [list, setList] = useState(tasks);  
+  const [list, setList] = useState(tasks),
+    [showDone, setShowDone] = useState(false);
 
-  const onListIdChange = id => {
-    const listToDisplay = tasks.filter(t => t.list_id === id);
+  const onListIdChange = (id) => {
+    const listToDisplay = tasks.filter((t) => t.list_id === id);
     setList(listToDisplay);
-  }
+  };
 
-  const onTaskCheck = id => {
+  const onToggleDoneTasks = (newShowDone) => {
+    setShowDone(newShowDone);
+  };
+
+  const onTaskCheck = (id) => {
     const task = tasks.find((t) => t.id === id);
     task.done = !task.done;
-  }
+  };
 
-  const onTaskDelete = id => {
+  const onTaskDelete = (id) => {
     const indexToDelete = tasks.findIndex((t) => t.id === id);
     tasks.splice(indexToDelete, 1);
-    const listToDisplay = list.filter(t => t.id !== id);
+    const listToDisplay = list.filter((t) => t.id !== id);
     setList(listToDisplay);
-  }
+  };
 
   return (
     <>
-      <Sidebar onListIdChange={onListIdChange}/>
+      <Sidebar
+        onListIdChange={onListIdChange}
+        onToggleDoneTasks={onToggleDoneTasks}
+      />
       <main>
-        <List list={list} onTaskDelete={onTaskDelete} onTaskCheck={onTaskCheck}/>
+        <List
+          list={list}
+          onTaskDelete={onTaskDelete}
+          onTaskCheck={onTaskCheck}
+          showDone={showDone}
+        />
         <NewTaskForm />
       </main>
     </>

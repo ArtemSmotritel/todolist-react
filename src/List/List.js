@@ -1,9 +1,9 @@
 import "./List.css";
 import Task from "./Task/Task";
-import { useState } from "react";
 
 export default function List(params) {
-  const {list, onTaskDelete, onTaskCheck} = params;
+  const { list, onTaskDelete, onTaskCheck } = params;
+  let listClass = "list" + (params.showDone ? " list_show-done" : "");
 
   function onDelete(id) {
     onTaskDelete(id);
@@ -13,7 +13,7 @@ export default function List(params) {
     onTaskCheck(id);
   }
   return (
-    <section className="list">
+    <section className={listClass}>
       <h3 className="list__name">Undone tasks</h3>
       <section className="list__tasks">
         {list.map((t) => (
