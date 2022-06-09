@@ -13,6 +13,20 @@
   gap: 20px;
 }
 
+.list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list::-webkit-scrollbar-track {
+  border-radius: 20px;
+  margin: 14px 0;
+}
+
+.list::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: darkgrey;
+}
+
 .list_show-done .task_done {
   display: block;
 }
