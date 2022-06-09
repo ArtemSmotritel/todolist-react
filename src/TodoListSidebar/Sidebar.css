@@ -26,6 +26,10 @@
   width: 25px;
 }
 
+.sidebar__checkbox:hover {
+  cursor: pointer;
+}
+
 .sidebar__main-header,
 .sidebar__section-header {
   font: normal normal 600 150%/120% "Kufam", sans-serif;
@@ -41,6 +45,21 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
+  overflow: scroll;
+}
+
+.list-of-lists::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-of-lists::-webkit-scrollbar-track {
+  border-radius: 20px;
+  margin: 14px 0;
+}
+
+.list-of-lists::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: darkgrey;
 }
 
 .list-of-lists__item:hover {

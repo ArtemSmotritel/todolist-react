@@ -11,8 +11,10 @@ export default function Sidebar(params) {
   };
 
   const handleListChange = (e) => {
-    const id = +e.target.id.split("-")[1];
-    onListIdChange(id);
+    if (e.target.id) {
+      const id = +e.target.id.split("-")[1];
+      onListIdChange(id);
+    }
   };
 
   return (
@@ -29,20 +31,12 @@ export default function Sidebar(params) {
           Show all tasks
         </label>
       </div>
-      <SectionHeader title={'Your lists'} />
-      <ul className="list-of-lists">
-        <li
-          className="list-of-lists__item"
-          id="list-1"
-          onClick={handleListChange}
-        >
+      <SectionHeader title={"Your lists"} />
+      <ul className="list-of-lists" onClick={handleListChange}>
+        <li className="list-of-lists__item" id="list-1">
           Easy tasks
         </li>
-        <li
-          className="list-of-lists__item"
-          id="list-2"
-          onClick={handleListChange}
-        >
+        <li className="list-of-lists__item" id="list-2">
           Hard tasks
         </li>
       </ul>
