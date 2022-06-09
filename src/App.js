@@ -55,11 +55,13 @@ const tasks = [
 ];
 
 function App() {
-  const [list, setList] = useState(tasks),
+  const [listId, setListId] = useState(1),
+    [list, setList] = useState(tasks.filter((t) => t.list_id === listId)),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("Undone tasks");
 
   const onListIdChange = (id) => {
+    setListId(id);
     const listToDisplay = tasks.filter((t) => t.list_id === id);
     setList(listToDisplay);
   };
@@ -68,6 +70,15 @@ function App() {
     const newTitle = newShowDone ? "All tasks" : "Undone tasks";
     setTitle(newTitle);
     setShowDone(newShowDone);
+  };
+
+  const onAddTask = (task) => {
+    task.id = tasks.reduce((max, { id }) => Math.max(max, id), 0) + 1;
+    task.list_id = listId;
+    tasks.push(task);
+    list.push(task);
+    const listToDisplay = [...list];
+    setList(listToDisplay);
   };
 
   const onTaskCheck = (id) => {
@@ -96,7 +107,7 @@ function App() {
           onTaskCheck={onTaskCheck}
           showDone={showDone}
         />
-        <NewTaskForm />
+        <NewTaskForm onAddTask={onAddTask} />
       </main>
     </>
   );

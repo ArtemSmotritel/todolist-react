@@ -26,10 +26,6 @@
   right: 10px;
 }
 
-.add-task-form_show {
-  display: flex;
-}
-
 .add-task-form input,
 .add-task-form textarea {
   margin-bottom: 15px;

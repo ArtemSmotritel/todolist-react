@@ -16,7 +16,7 @@ const formatDate = (dueDateStringOrDate) => {
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
   let dateFormmated = dueDate
-    ? ": " + Intl.DateTimeFormat("en-US").format(dueDate)
+    ? " " + Intl.DateTimeFormat("en-US").format(dueDate)
     : "";
 
   return dateFormmated;
@@ -69,7 +69,7 @@ export default function Task(params) {
       )}
       {task.due_date ? (
         <p className="task__date">
-          Due date:{" "}
+          Due date:
           <span className={dueDateClass}>{formatDate(task.due_date)}</span>
         </p>
       ) : (

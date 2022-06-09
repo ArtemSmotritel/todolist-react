@@ -1,10 +1,37 @@
 import removeImg from "./remove.png";
 import "./NewTaskForm.css";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Form(params) {
+  const { onAddTask } = params,
+    [inputs, setInputs] = useState({});
+
+  const resetForm = () => {
+    setInputs({});
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, description, dueDate } = inputs;
+    onAddTask({ name, description, due_date: dueDate });
+    resetForm();
+  };
+
+  const trackInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs((previousInputs) => {
+      return { ...previousInputs, [name]: value };
+    });
+  };
+
   return (
-    <form name="add-task" className="add-task-form" autoComplete="off">
+    <form
+      name="add-task"
+      className="add-task-form"
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
       <img
         src={removeImg}
         alt="hide-form button"
@@ -17,11 +44,13 @@ export default function Form(params) {
           </label>
           <input
             type="text"
-            name="name"
             required
             id="task-name"
-            placeholder="task name"
             className="add-task-form__name-field"
+            placeholder="task name"
+            name="name"
+            value={inputs.name || ""}
+            onChange={trackInput}
           />
         </div>
         <div className="add-task-form__date-container">
@@ -32,10 +61,13 @@ export default function Form(params) {
             Due date
           </label>
           <input
-            name="due_date"
             type="date"
             id="task-due-date"
             className="add-task-form__due-date-field"
+            placeholder="due date"
+            name="dueDate"
+            value={inputs.dueDate || ""}
+            onChange={trackInput}
           />
         </div>
       </div>
@@ -47,10 +79,12 @@ export default function Form(params) {
         Description
       </label>
       <textarea
-        name="description"
         id="task-description"
         className="add-task-form__description-field"
         placeholder="task description"
+        name="description"
+        value={inputs.description || ""}
+        onChange={trackInput}
       ></textarea>
 
       <button type="submit" className="add-task-form__button">
