@@ -4,23 +4,15 @@ import Task from "./Task/Task";
 import "./List.css";
 
 export default function List(params) {
-  const { list, title, onTaskDelete, onTaskCheck } = params;
-  let listClass = "list" + (params.showDone ? " list_show-done" : "");
-
-  function onDelete(id) {
-    onTaskDelete(id);
-  }
-
-  function onCheck(id) {
-    onTaskCheck(id);
-  }
+  const { list, title, onTaskDelete, onTaskCheck, showDone } = params;
+  
   return (
-    <section className={listClass}>
+    <section className={`list ${showDone && "list_show-done"}`}>
       <SectionHeader title={title} />
       <section className="list__tasks">
         {list.length ? (
           list.map((t) => (
-            <Task task={t} key={t.id} onDelete={onDelete} onCheck={onCheck} />
+            <Task task={t} key={t.id} onDelete={onTaskDelete} onCheck={onTaskCheck} />
           ))
         ) : (
           <EmptyBox

@@ -1,5 +1,5 @@
-import React from "react";
 import SectionHeader from "../SharedComponents/SectionHeader";
+import EmptyBox from "../SharedComponents/EmptyBox";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {

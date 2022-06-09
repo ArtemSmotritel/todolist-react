@@ -6,28 +6,18 @@ const isOverdue = (dueDateStringOrDate) => {
   const today = new Date();
   const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
 
-  if (!dueDate || dueDate.setHours(23, 59, 59) >= today) {
-    return "";
-  }
+  if (!dueDate || dueDate.setHours(23, 59, 59) >= today) return "";
   return " task__date_overdue";
 };
 
 const formatDate = (dueDateStringOrDate) => {
-  const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
-
-  let dateFormmated = dueDate
-    ? " " + Intl.DateTimeFormat("en-US").format(dueDate)
-    : "";
-
-  return dateFormmated;
+  if (!dueDateStringOrDate) return "";
+  return Intl.DateTimeFormat("en-US").format(new Date(dueDateStringOrDate));
 };
 
 export default function Task(params) {
   const { task, onDelete, onCheck } = params,
     [check, setCheck] = useState(task.done);
-
-  let dueDateClass = "task__due-date" + isOverdue(task.due_date),
-    taskClass = "task" + (check ? " task_done" : "");
 
   const handleDelete = (e) => {
     const taskElement = e.target.closest(".task");
@@ -42,7 +32,7 @@ export default function Task(params) {
   };
 
   return (
-    <section className={taskClass} id={task.id}>
+    <section className={`task ${check && "task_done"}`} id={task.id}>
       <img
         onClick={handleDelete}
         src={deleteImg}
@@ -62,18 +52,16 @@ export default function Task(params) {
           {task.name}
         </label>
       </div>
-      {task.description ? (
+      {task.description && (
         <p className="task__description">{task.description}</p>
-      ) : (
-        ""
       )}
-      {task.due_date ? (
+      {task.due_date && (
         <p className="task__date">
           Due date:
-          <span className={dueDateClass}>{formatDate(task.due_date)}</span>
+          <span className={"task__due-date" + isOverdue(task.due_date)}>
+            {formatDate(task.due_date)}
+          </span>
         </p>
-      ) : (
-        ""
       )}
     </section>
   );
