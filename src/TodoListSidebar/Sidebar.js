@@ -2,14 +2,15 @@ import React from "react";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
-  const { onListChange } = params;
+  const { onListIdChange } = params;
   
   const handleCheck = (e) => {
     console.log("changed");
   };
 
   const handleListChange = (e) => {
-    onListChange(2);
+    const id = +e.target.id.split('-')[1];
+    onListIdChange(id);
   };
 
   return (
@@ -28,10 +29,10 @@ export default function Sidebar(params) {
       </div>
       <h2 className="sidebar__section-header">Your lists</h2>
       <ul className="list-of-lists">
-        <li className="list-of-lists__item" onClick={handleListChange}>
+        <li className="list-of-lists__item" id="list-1" onClick={handleListChange}>
           Easy tasks
         </li>
-        <li className="list-of-lists__item" onClick={handleListChange}>
+        <li className="list-of-lists__item" id="list-2" onClick={handleListChange}>
           Hard tasks
         </li>
       </ul>

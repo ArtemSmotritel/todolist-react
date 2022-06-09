@@ -32,7 +32,6 @@ export default function Task(params) {
   const handleDelete = (e) => {
     const taskElement = e.target.closest(".task");
     onDelete(+taskElement.id);
-    taskElement.remove();
   };
 
   const handleCheck = (e) => {

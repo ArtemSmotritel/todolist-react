@@ -1,18 +1,16 @@
-import { useState } from "react";
 import "./List.css";
 import Task from "./Task/Task";
+import { useState } from "react";
 
 export default function List(params) {
-  const { list } = params;
-  
+  const {list, onTaskDelete, onTaskCheck} = params;
+
   function onDelete(id) {
-    let index = list.findIndex((t) => t.id === id);
-    list.splice(index, 1);
+    onTaskDelete(id);
   }
 
   function onCheck(id) {
-    let task = list.find((t) => t.id === id);
-    task.done = !task.done;
+    onTaskCheck(id);
   }
   return (
     <section className="list">

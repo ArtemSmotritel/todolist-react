@@ -55,17 +55,30 @@ const tasks = [
 ];
 
 function App() {
-  const [listId, setListId] = useState(1);
-  
-  const onListChange = id => {
-    setListId(id);
+  const [list, setList] = useState(tasks);  
+
+  const onListIdChange = id => {
+    const listToDisplay = tasks.filter(t => t.list_id === id);
+    setList(listToDisplay);
+  }
+
+  const onTaskCheck = id => {
+    const task = tasks.find((t) => t.id === id);
+    task.done = !task.done;
+  }
+
+  const onTaskDelete = id => {
+    const indexToDelete = tasks.findIndex((t) => t.id === id);
+    tasks.splice(indexToDelete, 1);
+    const listToDisplay = list.filter(t => t.id !== id);
+    setList(listToDisplay);
   }
 
   return (
     <>
-      <Sidebar onListChange={onListChange}/>
+      <Sidebar onListIdChange={onListIdChange}/>
       <main>
-        <List list={tasks.filter((t) => t.list_id === listId)} />
+        <List list={list} onTaskDelete={onTaskDelete} onTaskCheck={onTaskCheck}/>
         <NewTaskForm />
       </main>
     </>
