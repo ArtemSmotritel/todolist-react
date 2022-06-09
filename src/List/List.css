@@ -4,7 +4,7 @@
   padding: 15px;
   box-sizing: border-box;
   min-height: 525px;
-  height: fit-content;
+  /* height: fit-content; */
   overflow-y: scroll;
 
   display: flex;
@@ -42,6 +42,6 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  flex-flow: row wrap;
+  flex-flow: column;
   gap: 20px;
 }
