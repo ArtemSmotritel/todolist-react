@@ -16,14 +16,22 @@ async function getListById(id) {
   return response.data;
 }
 
-function updateTask(id, updatedFields) {
+function updateTaskOnServer(id, updatedFields) {
   axios
     .patch(`http://localhost:3001/tasks/${id}`, updatedFields)
     .catch((err) => console.log(err));
 }
 
-async function deleteTask(id) {
+async function deleteTaskOnServer(id) {
   await axios.delete(`http://localhost:3001/tasks/${id}`);
+}
+
+async function addTaskOnServer(task, listId) {
+  const response = await axios.post(
+    `http://localhost:3001/lists/${listId}/tasks`,
+    task
+  );
+  return response.data;
 }
 
 const tasks = [
@@ -92,21 +100,17 @@ function App() {
     setShowDone(newShowDone);
   };
 
-  const onAddTask = (task) => {
-    task.id = tasks.reduce((max, { id }) => Math.max(max, id), 0) + 1;
-    task.list_id = listId;
-    tasks.push(task);
-    list.push(task);
-    const listToDisplay = [...list];
-    setList(listToDisplay);
+  const onAddTask = async (task) => {
+    await addTaskOnServer(task, listId);
+    getListById(listId).then((list) => setList(list));
   };
 
   const onTaskCheck = (id, newDone) => {
-    updateTask(id, { done: newDone });
+    updateTaskOnServer(id, { done: newDone });
   };
 
   const onTaskDelete = async (id) => {
-    await deleteTask(id);
+    await deleteTaskOnServer(id);
     getListById(listId).then((list) => setList(list));
   };
 
