@@ -10,8 +10,16 @@ const yesterday = new Date(new Date().setDate(today.getDate() - 1));
 const tomorrow = new Date(new Date().setDate(today.getDate() + 1));
 
 async function getListById(id) {
-  const response = await axios(`http://localhost:3001/lists/${id}/tasks?all=true`);
+  const response = await axios(
+    `http://localhost:3001/lists/${id}/tasks?all=true`
+  );
   return response.data;
+}
+
+function updateTask(id, updatedFields) {
+  axios
+    .patch(`http://localhost:3001/tasks/${id}`, updatedFields)
+    .catch((err) => console.log(err));
 }
 
 const tasks = [
@@ -65,16 +73,13 @@ function App() {
     [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("Undone tasks");
-    
-    useEffect(() => {
-      getListById(1)
-        .then(list => setList(list));
-    }, []);
 
-    const onListIdChange = async (id) => {
-      setListId(id);
-      const listToDisplay = await getListById(listId);
-      setList(listToDisplay);
+  useEffect(() => {
+    getListById(listId).then((list) => setList(list));
+  }, [listId]);
+
+  const onListIdChange = (id) => {
+    setListId(id);
   };
 
   const onToggleDoneTasks = (newShowDone) => {
@@ -92,9 +97,8 @@ function App() {
     setList(listToDisplay);
   };
 
-  const onTaskCheck = (id) => {
-    const task = tasks.find((t) => t.id === id);
-    task.done = !task.done;
+  const onTaskCheck = (id, newDone) => {
+    updateTask(id, { done: newDone });
   };
 
   const onTaskDelete = (id) => {

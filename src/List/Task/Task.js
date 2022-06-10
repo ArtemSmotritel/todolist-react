@@ -28,7 +28,7 @@ export default function Task(params) {
     const newDone = e.target.checked;
     const taskId = e.target.closest(".task").id;
     setCheck(newDone);
-    onCheck(+taskId);
+    onCheck(+taskId, newDone);
   };
 
   return (
