@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
-  const { onListIdChange, onToggleDoneTasks } = params;
+  const { onListIdChange, onToggleDoneTasks, listOfLists } = params;
 
   const handleCheck = (e) => {
     const showAllTasks = e.target.checked;
@@ -12,7 +12,7 @@ export default function Sidebar(params) {
 
   const handleListChange = (e) => {
     if (e.target.id) {
-      const id = +e.target.id.split("-")[1];      
+      const id = +e.target.id.split("-")[1];
       onListIdChange(id);
     }
   };
@@ -33,8 +33,9 @@ export default function Sidebar(params) {
       </div>
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
-        <ListItem name={'Easy tasks'} id={1}/>
-        <ListItem name={'Hard tasks'} id={2}/>
+        {listOfLists.map((l) => (
+          <ListItem name={l.name} id={l.id} />
+        ))}
       </ul>
     </aside>
   );
