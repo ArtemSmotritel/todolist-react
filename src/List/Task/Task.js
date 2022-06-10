@@ -4,7 +4,7 @@ import deleteImg from "./trash-bin.png";
 
 const isOverdue = (dueDateStringOrDate) => {
   const today = new Date();
-  const dueDate = dueDateStringOrDate ? new Date(dueDateStringOrDate) : "";
+  const dueDate = dueDateStringOrDate && new Date(dueDateStringOrDate);
 
   if (!dueDate || dueDate.setHours(23, 59, 59) >= today) return "";
   return " task__date_overdue";

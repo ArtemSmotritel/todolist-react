@@ -28,7 +28,7 @@
 }
 
 .list_show-done .task_done {
-  display: block;
+  display: flex;
 }
 
 .list__name {
