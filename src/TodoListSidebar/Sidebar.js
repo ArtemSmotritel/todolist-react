@@ -1,4 +1,5 @@
 import SectionHeader from "../SharedComponents/SectionHeader";
+import ListItem from "./ListItem";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
@@ -11,8 +12,7 @@ export default function Sidebar(params) {
 
   const handleListChange = (e) => {
     if (e.target.id) {
-      const id = +e.target.id.split("-")[1];
-      console.log('SIDEBAR', id);
+      const id = +e.target.id.split("-")[1];      
       onListIdChange(id);
     }
   };
@@ -33,12 +33,8 @@ export default function Sidebar(params) {
       </div>
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
-        <li className="list-of-lists__item" id="list-1">
-          Easy tasks
-        </li>
-        <li className="list-of-lists__item" id="list-2">
-          Hard tasks
-        </li>
+        <ListItem name={'Easy tasks'} id={1}/>
+        <ListItem name={'Hard tasks'} id={2}/>
       </ul>
     </aside>
   );
