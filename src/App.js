@@ -22,6 +22,10 @@ function updateTask(id, updatedFields) {
     .catch((err) => console.log(err));
 }
 
+async function deleteTask(id) {
+  await axios.delete(`http://localhost:3001/tasks/${id}`);
+}
+
 const tasks = [
   {
     id: 1,
@@ -101,11 +105,9 @@ function App() {
     updateTask(id, { done: newDone });
   };
 
-  const onTaskDelete = (id) => {
-    const indexToDelete = tasks.findIndex((t) => t.id === id);
-    tasks.splice(indexToDelete, 1);
-    const listToDisplay = list.filter((t) => t.id !== id);
-    setList(listToDisplay);
+  const onTaskDelete = async (id) => {
+    await deleteTask(id);
+    getListById(listId).then((list) => setList(list));
   };
 
   return (
