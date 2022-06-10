@@ -20,6 +20,11 @@ async function makeRequest(url, method = "get", data) {
   return response;
 }
 
+async function getLists() {
+  const { data } = await makeRequest("/dashboard");
+  return data.undone_tasks_by_list;
+}
+
 async function getListById(id) {
   const { data } = await makeRequest(urlListId(id));
   return data;
@@ -38,11 +43,12 @@ async function addTaskOnServer(task, listId) {
   return data;
 }
 
-function App() {
+export default function App() {
   const [listId, setListId] = useState(1),
     [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
-    [title, setTitle] = useState("Undone tasks");
+    [title, setTitle] = useState("Undone tasks"),
+    [lists, setLists] = useState([]);
 
   const updateCurrentList = async (listId) => {
     const newList = await getListById(listId);
@@ -52,6 +58,10 @@ function App() {
   useEffect(() => {
     updateCurrentList(listId);
   }, [listId]);
+
+  useEffect(() => {
+    getLists().then((lists) => setLists(lists));
+  }, []);
 
   const onToggleDoneTasks = (newShowDone) => {
     const newTitle = newShowDone ? "All tasks" : "Undone tasks";
@@ -78,6 +88,7 @@ function App() {
       <Sidebar
         onListIdChange={setListId}
         onToggleDoneTasks={onToggleDoneTasks}
+        listOfLists={lists}
       />
       <main>
         <List
@@ -92,5 +103,3 @@ function App() {
     </>
   );
 }
-
-export default App;

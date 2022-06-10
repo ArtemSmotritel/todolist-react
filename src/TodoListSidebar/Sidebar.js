@@ -34,7 +34,7 @@ export default function Sidebar(params) {
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
         {listOfLists.map((l) => (
-          <ListItem name={l.name} id={l.id} />
+          <ListItem name={l.name} id={l.id} key={l.id}/>
         ))}
       </ul>
     </aside>
