@@ -20,9 +20,7 @@ export default function Form(params) {
   const trackInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInputs((previousInputs) => {
-      return { ...previousInputs, [name]: value };
-    });
+    setInputs((previousInputs) => ({ ...previousInputs, [name]: value }));
   };
 
   return (

@@ -2,11 +2,17 @@ import "./App.css";
 import List from "./List/List";
 import NewTaskForm from "./NewTaskForm/NewTaskForm";
 import Sidebar from "./TodoListSidebar/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const today = new Date();
 const yesterday = new Date(new Date().setDate(today.getDate() - 1));
 const tomorrow = new Date(new Date().setDate(today.getDate() + 1));
+
+async function getListById(id) {
+  const response = await axios(`http://localhost:3001/lists/${id}/tasks?all=true`);
+  return response.data;
+}
 
 const tasks = [
   {
@@ -56,14 +62,19 @@ const tasks = [
 
 function App() {
   const [listId, setListId] = useState(1),
-    [list, setList] = useState(tasks.filter((t) => t.list_id === listId)),
+    [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("Undone tasks");
+    
+    useEffect(() => {
+      getListById(1)
+        .then(list => setList(list));
+    }, []);
 
-  const onListIdChange = (id) => {
-    setListId(id);
-    const listToDisplay = tasks.filter((t) => t.list_id === id);
-    setList(listToDisplay);
+    const onListIdChange = async (id) => {
+      setListId(id);
+      const listToDisplay = await getListById(listId);
+      setList(listToDisplay);
   };
 
   const onToggleDoneTasks = (newShowDone) => {

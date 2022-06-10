@@ -1,5 +1,4 @@
 import SectionHeader from "../SharedComponents/SectionHeader";
-import EmptyBox from "../SharedComponents/EmptyBox";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
@@ -13,6 +12,7 @@ export default function Sidebar(params) {
   const handleListChange = (e) => {
     if (e.target.id) {
       const id = +e.target.id.split("-")[1];
+      console.log('SIDEBAR', id);
       onListIdChange(id);
     }
   };
