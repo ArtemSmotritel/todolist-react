@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SectionHeader from "../SharedComponents/SectionHeader";
 import ListItem from "./ListItem";
 import "./Sidebar.css";
+import { getLists } from "../serverFunctions";
 
 export default function Sidebar(params) {
-  const { onListIdChange, listOfLists, onTodayTasks } = params;
-  const [highlightedList, setHighlightedList] = useState(1);
+  const { onListIdChange, onTodayTasks } = params;
+  const [highlightedList, setHighlightedList] = useState(1),
+    [lists, setLists] = useState([]);
+
+  useEffect(() => {
+    getLists().then((lists) => setLists(lists));
+  }, []);
 
   const handleListChange = (e) => {
     if (e.target.id) {
@@ -17,13 +23,13 @@ export default function Sidebar(params) {
 
   return (
     <aside className="sidebar">
-      <h1 className="sidebar__main-header">TODO list</h1>      
+      <h1 className="sidebar__main-header">TODO list</h1>
       <span className="sidebar__today" onClick={onTodayTasks}>
         Tasks for today
       </span>
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
-        {listOfLists.map((l) => (
+        {lists.map((l) => (
           <ListItem
             name={l.name}
             id={l.id}

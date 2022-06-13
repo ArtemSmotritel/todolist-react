@@ -1,18 +1,13 @@
 import "./App.css";
-import List from "./List/List";
 import NewTaskForm from "./NewTaskForm/NewTaskForm";
 import Sidebar from "./TodoListSidebar/Sidebar";
-import { useState, useEffect } from "react";
-import { getLists, addTaskOnServer, getTasksForToday } from "./serverFunctions";
-import { Outlet } from "react-router-dom";
+import List from "./List/List";
+import { useState } from "react";
+import { addTaskOnServer, getTasksForToday } from "./serverFunctions";
+import { Route, Routes } from "react-router-dom";
 
 export default function App() {
-  const [listId, setListId] = useState(1),
-    [lists, setLists] = useState([]);
-
-  useEffect(() => {
-    getLists().then((lists) => setLists(lists));
-  }, []);
+  const [listId, setListId] = useState(1);
 
   const onTodayTasks = async () => {
     const tasks = await getTasksForToday();
@@ -29,13 +24,15 @@ export default function App() {
   return (
     <>
       <Sidebar
-        onListIdChange={setListId}        
-        onTodayTasks={onTodayTasks}
-        listOfLists={lists}
+        onListIdChange={setListId}
+        onTodayTasks={onTodayTasks}        
       />
       <main>
-        <List listId={listId} />
-        <Outlet />
+        <Routes>
+          <Route path="todo-list/">
+            <Route path=":id" element={<List />}></Route>
+          </Route>
+        </Routes>
         <NewTaskForm onAddTask={onAddTask} />
       </main>
     </>

@@ -9,9 +9,8 @@ export default function ListItem(params) {
         highlighted === id && "list-of-lists__item_highlighted"
       }`}
       id={`list-${id}`}
-    >
-      {name}
-      {/* <Link to={`/todo-list/${id}`}>{name}</Link> */}
+    >      
+      <Link to={`/todo-list/${id}`}>{name}</Link>
     </li>
   );
 }
