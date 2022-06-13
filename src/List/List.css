@@ -38,6 +38,21 @@
   margin: 0;
 }
 
+.list__checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.list__checkbox {
+  height: 25px;
+  width: 25px;
+}
+
+.list__checkbox:hover {
+  cursor: pointer;
+}
+
 .list__tasks {
   width: 100%;
   display: flex;

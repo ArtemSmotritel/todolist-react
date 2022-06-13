@@ -14,22 +14,6 @@
   flex-direction: column;
 }
 
-.sidebar__checkbox-container {  
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.sidebar__checkbox {
-  height: 25px;
-  width: 25px;
-}
-
-.sidebar__checkbox:hover {
-  cursor: pointer;
-}
-
 .sidebar__today {
   margin-bottom: 80px;
 }

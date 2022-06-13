@@ -16,7 +16,7 @@ const formatDate = (dueDateStringOrDate) => {
 };
 
 export default function Task(params) {
-  const { task, onDelete, onCheck, showList } = params,
+  const { task, onDelete, onCheck } = params,
     [check, setCheck] = useState(task.done);
 
   const handleDelete = (e) => {
@@ -47,14 +47,14 @@ export default function Task(params) {
           id="task-1"
           onChange={handleCheck}
           checked={check}
-          ></input>
+        ></input>
         <label className="task__name" htmlFor="task-1">
           {task.name}
         </label>
       </div>
       {task.description && (
         <p className="task__description">{task.description}</p>
-        )}
+      )}
       {task.due_date && (
         <p className="task__date">
           Due date:

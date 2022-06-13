@@ -3,79 +3,39 @@ import List from "./List/List";
 import NewTaskForm from "./NewTaskForm/NewTaskForm";
 import Sidebar from "./TodoListSidebar/Sidebar";
 import { useState, useEffect } from "react";
-import {
-  getLists,
-  getListById,
-  updateTaskOnServer,
-  deleteTaskOnServer,
-  addTaskOnServer,
-  getTasksForToday
-} from "./serverFunctions";
+import { getLists, addTaskOnServer, getTasksForToday } from "./serverFunctions";
+import { Outlet } from "react-router-dom";
 
 export default function App() {
   const [listId, setListId] = useState(1),
-    [list, setList] = useState([]),
-    [showDone, setShowDone] = useState(false),
-    [title, setTitle] = useState("Undone tasks"),
     [lists, setLists] = useState([]);
-
-  const updateCurrentList = async (listId) => {
-    const newList = await getListById(listId);
-    setList(newList);
-  };
-
-  useEffect(() => {
-    updateCurrentList(listId);
-  }, [listId]);
 
   useEffect(() => {
     getLists().then((lists) => setLists(lists));
   }, []);
 
-  const onTodayTasks = async () => {    
+  const onTodayTasks = async () => {
     const tasks = await getTasksForToday();
-    setList(tasks);
-  }
-
-  const onToggleDoneTasks = (newShowDone) => {
-    const newTitle = newShowDone ? "All tasks" : "Undone tasks";
-    setTitle(newTitle);
-    setShowDone(newShowDone);
+    // setList(tasks);
   };
 
   const onAddTask = async (task) => {
     const { id } = await addTaskOnServer(task, listId);
     task.list_id = listId;
     task.id = id;
-    setList([...list, task]);    
-  };
-
-  const onTaskCheck = async (id, newDone) => {
-    await updateTaskOnServer(id, { done: newDone });
-  };
-
-  const onTaskDelete = async (id) => {
-    await deleteTaskOnServer(id);
-    updateCurrentList(listId);
+    // setList([...list, task]);
   };
 
   return (
     <>
       <Sidebar
-        onListIdChange={setListId}
-        onToggleDoneTasks={onToggleDoneTasks}
+        onListIdChange={setListId}        
         onTodayTasks={onTodayTasks}
         listOfLists={lists}
       />
       <main>
-        <List
-          list={list}
-          title={title}
-          showDone={showDone}
-          showList={setListId}
-          onTaskDelete={onTaskDelete}
-          onTaskCheck={onTaskCheck}          
-        />
+        <List listId={listId} />
+        <Outlet />
         <NewTaskForm onAddTask={onAddTask} />
       </main>
     </>
