@@ -38,8 +38,10 @@ export default function App() {
   };
 
   const onAddTask = async (task) => {
-    await addTaskOnServer(task, listId);
-    updateCurrentList(listId);
+    const { id } = await addTaskOnServer(task, listId);
+    task.list_id = listId;
+    task.id = id;
+    setList([...list, task]);    
   };
 
   const onTaskCheck = async (id, newDone) => {
