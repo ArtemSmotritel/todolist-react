@@ -9,7 +9,7 @@ import {
   updateTaskOnServer,
   deleteTaskOnServer,
   addTaskOnServer,
-  getTasksForToday
+  getTasksForToday,
 } from "./serverFunctions";
 
 export default function App() {
@@ -32,10 +32,10 @@ export default function App() {
     getLists().then((lists) => setLists(lists));
   }, []);
 
-  const onTodayTasks = async () => {    
+  const onTodayTasks = async () => {
     const tasks = await getTasksForToday();
     setList(tasks);
-  }
+  };
 
   const onToggleDoneTasks = (newShowDone) => {
     const newTitle = newShowDone ? "All tasks" : "Undone tasks";
@@ -47,7 +47,7 @@ export default function App() {
     const { id } = await addTaskOnServer(task, listId);
     task.list_id = listId;
     task.id = id;
-    setList([...list, task]);    
+    setList([...list, task]);
   };
 
   const onTaskCheck = async (id, newDone) => {
@@ -56,7 +56,9 @@ export default function App() {
 
   const onTaskDelete = async (id) => {
     await deleteTaskOnServer(id);
-    updateCurrentList(listId);
+    const index = list.findIndex((t) => t.id === id);
+    list.splice(index, 1);
+    setList([...list]);
   };
 
   return (
@@ -71,9 +73,10 @@ export default function App() {
         <List
           list={list}
           title={title}
+          showDone={showDone}
+          showList={setListId}
           onTaskDelete={onTaskDelete}
           onTaskCheck={onTaskCheck}
-          showDone={showDone}
         />
         <NewTaskForm onAddTask={onAddTask} />
       </main>
