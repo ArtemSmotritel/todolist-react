@@ -71,9 +71,10 @@ export default function App() {
         <List
           list={list}
           title={title}
-          onTaskDelete={onTaskDelete}
-          onTaskCheck={onTaskCheck}
           showDone={showDone}
+          showList={setListId}
+          onTaskDelete={onTaskDelete}
+          onTaskCheck={onTaskCheck}          
         />
         <NewTaskForm onAddTask={onAddTask} />
       </main>

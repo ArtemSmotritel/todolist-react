@@ -4,7 +4,7 @@ import Task from "./Task/Task";
 import "./List.css";
 
 export default function List(params) {
-  const { list, title, onTaskDelete, onTaskCheck, showDone } = params;
+  const { list, title, onTaskDelete, onTaskCheck, showDone, showList } = params;
   
   return (
     <section className={`list ${showDone && "list_show-done"}`}>
@@ -12,7 +12,7 @@ export default function List(params) {
       <section className="list__tasks">
         {list.length ? (
           list.map((t) => (
-            <Task task={t} key={t.id} onDelete={onTaskDelete} onCheck={onTaskCheck} />
+            <Task task={t} key={t.id} onDelete={onTaskDelete} onCheck={onTaskCheck} showList={showList} />
           ))
         ) : (
           <EmptyBox
