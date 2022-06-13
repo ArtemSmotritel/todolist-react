@@ -1,0 +1,36 @@
+.list-of-lists {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.list-of-lists::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-of-lists::-webkit-scrollbar-track {
+  border-radius: 20px;
+  margin: 14px 0;
+}
+
+.list-of-lists::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: darkgrey;
+}
+
+.list-of-lists__item {
+    border-radius: 5px;
+}
+
+.list-of-lists__item:hover {
+  cursor: crosshair;
+}
+
+.list-of-lists__item_highlighted {
+  background-color: #d3d6db;
+}
