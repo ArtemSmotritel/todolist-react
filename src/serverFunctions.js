@@ -10,32 +10,52 @@ async function makeRequest(url, method = "get", data) {
     url,
   };
   if (data && method !== "get") reqConfig.data = data;
-
+  
   const response = await axios(reqConfig);
-  return response;
+  return response;  
 }
 
 async function getLists() {
-  const { data } = await makeRequest("/dashboard");
-  return data.undone_tasks_by_list;
+  try {
+    const { data } = await makeRequest("/dashboard");
+    return data.undone_tasks_by_list;
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot request a list of lists");
+  }
 }
 
 async function getListById(id) {
-  const { data } = await makeRequest(urlListId(id));
-  return data;
+  try {
+    const { data } = await makeRequest(urlListId(id));
+    return data;
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot request this list");
+  }
 }
 
 async function updateTaskOnServer(id, updatedFields) {
-  await makeRequest(urlTaskId(id), "patch", updatedFields);
+  try {
+    await makeRequest(urlTaskId(id), "patch", updatedFields);
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot check this task");
+  }
 }
 
 async function deleteTaskOnServer(id) {
-  await makeRequest(urlTaskId(id), "delete");
+  try {
+    await makeRequest(urlTaskId(id), "delete");
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot delete this task");
+  }
 }
 
 async function addTaskOnServer(task, listId) {
-  const { data } = await makeRequest(urlListId(listId), "post", task);
-  return data;
+  try {
+    const { data } = await makeRequest(urlListId(listId), "post", task);
+    return data;
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot add this task");
+  }
 }
 
 export {
