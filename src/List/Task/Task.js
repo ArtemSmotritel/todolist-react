@@ -39,6 +39,7 @@ export default function Task(params) {
         alt="a trash can to delete the task"
         className="task__delete"
       />
+      {task.list_name && <p className="task__list_name">{task.list_name}</p>}
       <div className="task__status">
         <input
           type="checkbox"

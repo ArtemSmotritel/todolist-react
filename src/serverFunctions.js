@@ -58,10 +58,20 @@ async function addTaskOnServer(task, listId) {
   }
 }
 
+async function getTasksForToday() {
+  try {
+    const { data } = await makeRequest("/collection/today");    
+    return data;
+  } catch (error) {
+    throw new Error("Something went very wrong on the server. Cannot get tasks for today");
+  }
+}
+
 export {
   getLists,
   getListById,
   updateTaskOnServer,
   deleteTaskOnServer,
   addTaskOnServer,
+  getTasksForToday,
 };

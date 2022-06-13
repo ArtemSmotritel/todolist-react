@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 import "./Sidebar.css";
 
 export default function Sidebar(params) {
-  const { onListIdChange, onToggleDoneTasks, listOfLists } = params;
+  const { onListIdChange, onToggleDoneTasks, listOfLists, onTodayTasks } = params;
 
   const handleCheck = (e) => {
     const showAllTasks = e.target.checked;
@@ -31,6 +31,7 @@ export default function Sidebar(params) {
           Show all tasks
         </label>
       </div>
+      <span className="sidebar__today" onClick={onTodayTasks}>Tasks for today</span>
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
         {listOfLists.map((l) => (

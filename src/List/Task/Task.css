@@ -16,6 +16,12 @@
   display: none;
 }
 
+.task__list_name {
+  font: normal normal 600 150%/120% monospace;
+  margin: 0;
+}
+
+.task__list_name,
 .task__date,
 .task__status,
 .task__description {

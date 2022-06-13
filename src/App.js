@@ -9,6 +9,7 @@ import {
   updateTaskOnServer,
   deleteTaskOnServer,
   addTaskOnServer,
+  getTasksForToday
 } from "./serverFunctions";
 
 export default function App() {
@@ -30,6 +31,11 @@ export default function App() {
   useEffect(() => {
     getLists().then((lists) => setLists(lists));
   }, []);
+
+  const onTodayTasks = async () => {    
+    const tasks = await getTasksForToday();
+    setList(tasks);
+  }
 
   const onToggleDoneTasks = (newShowDone) => {
     const newTitle = newShowDone ? "All tasks" : "Undone tasks";
@@ -58,6 +64,7 @@ export default function App() {
       <Sidebar
         onListIdChange={setListId}
         onToggleDoneTasks={onToggleDoneTasks}
+        onTodayTasks={onTodayTasks}
         listOfLists={lists}
       />
       <main>
