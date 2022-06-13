@@ -8,9 +8,11 @@ import {
   updateTaskOnServer,
   deleteTaskOnServer,
 } from "../serverFunctions";
+import { useParams } from "react-router-dom";
 
-export default function List(params) {
-  const { listId } = params;
+export default function List() {
+  const params = useParams();
+  const { id } = params;
   const [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("Undone tasks");
@@ -21,25 +23,25 @@ export default function List(params) {
   };
 
   useEffect(() => {
-    updateCurrentList(listId);
-  }, [listId]);
+    updateCurrentList(id);
+  }, [id]);
 
-  const onShowAllTasks = (e) => {
+  const toggleDoneTasks = (e) => {
     const showAllTasks = e.target.checked;
     const newTitle = showAllTasks ? "All tasks" : "Undone tasks";
     setTitle(newTitle);
     setShowDone(showAllTasks);
   };
 
-  const onTaskDelete = async (id) => {
-    await deleteTaskOnServer(id);
-    const index = list.findIndex((t) => t.id === id);
+  const onTaskDelete = async (taskId) => {
+    await deleteTaskOnServer(taskId);
+    const index = list.findIndex((t) => t.id === taskId);
     list.splice(index, 1);
     setList([...list]);
   };
 
-  const onTaskCheck = async (id, newDone) => {
-    await updateTaskOnServer(id, { done: newDone });
+  const onTaskCheck = async (taskId, newDone) => {
+    await updateTaskOnServer(taskId, { done: newDone });
   };
 
   return (
@@ -50,7 +52,7 @@ export default function List(params) {
           className="list__checkbox"
           type="checkbox"
           id="list-toggle"
-          onChange={onShowAllTasks}
+          onChange={toggleDoneTasks}
         ></input>
         <label className="list__checkbox-label" htmlFor="list-toggle">
           Show all tasks
