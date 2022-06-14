@@ -3,16 +3,11 @@ import NewTaskForm from "./NewTaskForm/NewTaskForm";
 import Sidebar from "./TodoListSidebar/Sidebar";
 import List from "./List/List";
 import { useState } from "react";
-import { addTaskOnServer, getTasksForToday } from "./serverFunctions";
+import { addTaskOnServer } from "./serverFunctions";
 import { Route, Routes } from "react-router-dom";
 
 export default function App() {
   const [listId, setListId] = useState(1);
-
-  const onTodayTasks = async () => {
-    const tasks = await getTasksForToday();
-    // setList(tasks);
-  };
 
   const onAddTask = async (task) => {
     const { id } = await addTaskOnServer(task, listId);
@@ -23,7 +18,7 @@ export default function App() {
 
   return (
     <>
-      <Sidebar onListIdChange={setListId} onTodayTasks={onTodayTasks} />
+      <Sidebar onListIdChange={setListId} />
       <main>
         <Routes>
           <Route path="todo-list/">
