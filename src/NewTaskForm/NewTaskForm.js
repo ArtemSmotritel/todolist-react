@@ -1,18 +1,17 @@
-import removeImg from "./remove.png";
 import "./NewTaskForm.css";
 import React, { useState } from "react";
 
 export default function Form(params) {
   const { onAddTask } = params,
-    [inputs, setInputs] = useState({});
+    [task, setTask] = useState({});
 
   const resetForm = () => {
-    setInputs({});
+    setTask({});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, description, dueDate } = inputs;
+    const { name, description, dueDate } = task;
     onAddTask({ name, description, due_date: dueDate });
     resetForm();
   };
@@ -20,7 +19,7 @@ export default function Form(params) {
   const trackInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setInputs((previousInputs) => ({ ...previousInputs, [name]: value }));
+    setTask((previousInputs) => ({ ...previousInputs, [name]: value }));
   };
 
   return (
@@ -30,11 +29,6 @@ export default function Form(params) {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      {/* <img
-        src={removeImg}
-        alt="hide-form button"
-        className="add-task-form__hide-form"
-      /> */}
       <div className="add-task-form__container">
         <div className="add-task-form__name-container">
           <label htmlFor="task-name" className="add-task-form__name-label">
@@ -47,7 +41,7 @@ export default function Form(params) {
             className="add-task-form__name-field"
             placeholder="task name"
             name="name"
-            value={inputs.name || ""}
+            value={task.name || ""}
             onChange={trackInput}
           />
         </div>
@@ -64,7 +58,7 @@ export default function Form(params) {
             className="add-task-form__due-date-field"
             placeholder="due date"
             name="dueDate"
-            value={inputs.dueDate || ""}
+            value={task.dueDate || ""}
             onChange={trackInput}
           />
         </div>
@@ -81,7 +75,7 @@ export default function Form(params) {
         className="add-task-form__description-field"
         placeholder="task description"
         name="description"
-        value={inputs.description || ""}
+        value={task.description || ""}
         onChange={trackInput}
       ></textarea>
 

@@ -2,29 +2,12 @@ import SectionHeader from "../SharedComponents/SectionHeader";
 import EmptyBox from "../SharedComponents/EmptyBox";
 import Task from "./Task/Task";
 import "./List.css";
-import { useState, useEffect } from "react";
-import {
-  updateTaskOnServer,
-  deleteTaskOnServer,
-  getListOrToday,
-} from "../serverFunctions";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { updateTaskOnServer, deleteTaskOnServer } from "../serverFunctions";
 
-export default function List() {
-  const { id } = useParams();
-  const [list, setList] = useState([]),
-    [showDone, setShowDone] = useState(false),
-    [title, setTitle] = useState("");
-
-  const updateCurrentList = async (listId) => {
-    const newList = await getListOrToday(listId);
-    setList(newList.tasks);
-    setTitle(newList.name);
-  };
-
-  useEffect(() => {
-    updateCurrentList(id);
-  }, [id]);
+export default function List(params) {
+  const { list, title, setList } = params;
+  const [showDone, setShowDone] = useState(false);
 
   const toggleDoneTasks = (e) => {
     const showAllTasks = e.target.checked;
@@ -58,7 +41,7 @@ export default function List() {
         </label>
       </div>
       <section className="list__tasks">
-        {list.length ? (
+        {list && list.length ? (
           list.map((t) => (
             <Task
               task={t}
