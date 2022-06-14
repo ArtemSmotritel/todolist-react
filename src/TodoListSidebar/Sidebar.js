@@ -5,18 +5,16 @@ import "./Sidebar.css";
 import { getLists } from "../serverFunctions";
 
 export default function Sidebar(params) {
-  const { onListIdChange, onTodayTasks } = params;
-  const [highlightedList, setHighlightedList] = useState(1),
+  const { onListIdChange, onTodayTasks } = params,
     [lists, setLists] = useState([]);
 
   useEffect(() => {
-    getLists().then((lists) => setLists(lists));
+    getLists().then((data) => setLists(data.undone_tasks_by_list));
   }, []);
 
   const handleListChange = (e) => {
     if (e.target.id) {
       const id = +e.target.id.split("-")[1];
-      setHighlightedList(id);
       onListIdChange(id);
     }
   };
@@ -30,12 +28,7 @@ export default function Sidebar(params) {
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
         {lists.map((l) => (
-          <ListItem
-            name={l.name}
-            id={l.id}
-            key={l.id}
-            highlighted={highlightedList}
-          />
+          <ListItem list={l} key={l.id} />
         ))}
       </ul>
     </aside>

@@ -3,9 +3,11 @@
   margin: 0;
   list-style-type: none;
   overflow: scroll;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   gap: 7px;
 }
 
@@ -23,14 +25,22 @@
   background-color: darkgrey;
 }
 
-.list-of-lists__item {
-    border-radius: 5px;
-}
-
-.list-of-lists__item:hover {
+.list-of-lists__link {
   cursor: crosshair;
+  text-decoration: none;
 }
 
-.list-of-lists__item_highlighted {
+.active {
+  padding: 3px 3px 3px 7px;
   background-color: #d3d6db;
+  border-radius: 5px;
+}
+
+.active ~ .list-of-lists__task-count {
+  padding: 3px 5px;
+}
+
+.list-of-lists__item {
+  display: flex;
+  justify-content: space-between;
 }

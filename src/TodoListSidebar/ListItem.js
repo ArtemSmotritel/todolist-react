@@ -1,16 +1,14 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./ListOfLists.css";
 
-export default function ListItem(params) {
-  const { name, id, highlighted } = params;
+export default function ListItem({ list }) {
+  const { id, name, tasks_count } = list;
   return (
-    <li
-      className={`list-of-lists__item ${
-        highlighted === id && "list-of-lists__item_highlighted"
-      }`}
-      id={`list-${id}`}
-    >      
-      <Link to={`/todo-list/${id}`}>{name}</Link>
+    <li className={"list-of-lists__item"} id={`list-${id}`}>
+      <NavLink className="list-of-lists__link" to={`/todo-list/${id}`}>
+        {name}
+      </NavLink>
+      <span className="list-of-lists__task-count">({tasks_count})</span>
     </li>
   );
 }
