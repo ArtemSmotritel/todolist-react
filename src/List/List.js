@@ -15,10 +15,10 @@ export default function List() {
   const { id } = params;
   const [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
-    [title, setTitle] = useState("Tasks for today");
+    [title, setTitle] = useState("");
 
   const updateCurrentList = async (listId) => {
-    const newList = await getListOrToday(listId);    
+    const newList = await getListOrToday(listId);
     setList(newList.tasks);
     setTitle(newList.name);
   };
@@ -28,7 +28,7 @@ export default function List() {
   }, [id]);
 
   const toggleDoneTasks = (e) => {
-    const showAllTasks = e.target.checked;    
+    const showAllTasks = e.target.checked;
     setShowDone(showAllTasks);
   };
 

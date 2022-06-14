@@ -6,19 +6,11 @@ import { getLists } from "../serverFunctions";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar(params) {
-  const { onListIdChange } = params,
-    [lists, setLists] = useState([]);
+  const [lists, setLists] = useState([]);
 
   useEffect(() => {
     getLists().then((data) => setLists(data.undone_tasks_by_list));
   }, []);
-
-  const handleListChange = (e) => {
-    if (e.target.id) {
-      const id = +e.target.id.split("-")[1];
-      onListIdChange(id);
-    }
-  };
 
   return (
     <aside className="sidebar">
@@ -27,7 +19,7 @@ export default function Sidebar(params) {
         Tasks for today
       </NavLink>
       <SectionHeader title={"Your lists"} />
-      <ul className="list-of-lists" onClick={handleListChange}>
+      <ul className="list-of-lists">
         {lists.map((l) => (
           <ListItem list={l} key={l.id} />
         ))}
