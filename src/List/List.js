@@ -4,24 +4,23 @@ import Task from "./Task/Task";
 import "./List.css";
 import { useState, useEffect } from "react";
 import {
-  getListById,
   updateTaskOnServer,
   deleteTaskOnServer,
-  getListOrToday
+  getListOrToday,
 } from "../serverFunctions";
 import { useParams } from "react-router-dom";
 
 export default function List() {
   const params = useParams();
-  console.log(params);
   const { id } = params;
   const [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
-    [title, setTitle] = useState("Undone tasks");
+    [title, setTitle] = useState("Tasks for today");
 
-  const updateCurrentList = async (listId) => {    
-    const newList = await getListOrToday(listId);
-    setList(newList);
+  const updateCurrentList = async (listId) => {
+    const newList = await getListOrToday(listId);    
+    setList(newList.tasks);
+    setTitle(newList.name);
   };
 
   useEffect(() => {
@@ -29,9 +28,7 @@ export default function List() {
   }, [id]);
 
   const toggleDoneTasks = (e) => {
-    const showAllTasks = e.target.checked;
-    const newTitle = showAllTasks ? "All tasks" : "Undone tasks";
-    setTitle(newTitle);
+    const showAllTasks = e.target.checked;    
     setShowDone(showAllTasks);
   };
 
