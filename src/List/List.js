@@ -11,8 +11,7 @@ import {
 import { useParams } from "react-router-dom";
 
 export default function List() {
-  const params = useParams();
-  const { id } = params;
+  const { id } = useParams();
   const [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("");
@@ -34,13 +33,14 @@ export default function List() {
 
   const onTaskDelete = async (taskId) => {
     await deleteTaskOnServer(taskId);
-    const index = list.findIndex((t) => t.id === taskId);
-    list.splice(index, 1);
-    setList([...list]);
+    setList(list.filter((t) => t.id !== taskId));
   };
 
   const onTaskCheck = async (taskId, newDone) => {
     await updateTaskOnServer(taskId, { done: newDone });
+    const task = list.find((t) => t.id === taskId);
+    task.done = newDone;
+    setList([...list]);
   };
 
   return (
@@ -69,8 +69,8 @@ export default function List() {
           ))
         ) : (
           <EmptyBox
-            className={"list__empty"}
-            title={"No tasks here. Surely you can add one"}
+            className="list__empty"
+            title="No tasks here. Surely you can add one"
           />
         )}
       </section>

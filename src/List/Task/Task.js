@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
@@ -17,25 +16,12 @@ const formatDate = (dueDateStringOrDate) => {
 };
 
 export default function Task(params) {
-  const { task, onDelete, onCheck } = params,
-    [check, setCheck] = useState(task.done);
-
-  const handleDelete = (e) => {
-    const taskElement = e.target.closest(".task");
-    onDelete(+taskElement.id);
-  };
-
-  const handleCheck = (e) => {
-    const newDone = e.target.checked;
-    const taskId = e.target.closest(".task").id;
-    setCheck(newDone);
-    onCheck(+taskId, newDone);
-  };
+  const { task, onDelete, onCheck } = params;
 
   return (
-    <section className={`task ${check && "task_done"}`} id={task.id}>
+    <section className={`task ${task.done && "task_done"}`} id={task.id}>
       <img
-        onClick={handleDelete}
+        onClick={() => onDelete(task.id)}
         src={deleteImg}
         alt="a trash can to delete the task"
         className="task__delete"
@@ -46,8 +32,8 @@ export default function Task(params) {
           name="done"
           className="task__checkbox"
           id="task-1"
-          onChange={handleCheck}
-          checked={check}
+          onChange={() => onCheck(task.id, !task.done)}
+          checked={task.done}
         ></input>
         <label className="task__name" htmlFor="task-1">
           {task.name}
@@ -58,7 +44,7 @@ export default function Task(params) {
       )}
       {task.due_date && (
         <p className="task__date">
-          Due date:
+          Due date:{' '}
           <span className={"task__due-date" + isOverdue(task.due_date)}>
             {formatDate(task.due_date)}
           </span>
