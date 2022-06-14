@@ -29,6 +29,7 @@
   cursor: crosshair;
   text-decoration: none;
   color: inherit;
+  padding: 0 7px;
 
   display: flex;
   justify-content: space-between;

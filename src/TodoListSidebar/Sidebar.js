@@ -6,10 +6,14 @@ import { getLists } from "../serverFunctions";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar(params) {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState([]),
+    [taskCount, setTaskCount] = useState(0);
 
   useEffect(() => {
-    getLists().then((data) => setLists(data.undone_tasks_by_list));
+    getLists().then((data) => {
+      setLists(data.undone_tasks_by_list);
+      setTaskCount(data.tasks_for_today);
+    });
   }, []);
 
   return (
@@ -17,8 +21,9 @@ export default function Sidebar(params) {
       <h1 className="sidebar__main-header">TODO list</h1>
       <NavLink className="sidebar__today" to={"/today"}>
         Tasks for today
+        <span className="sidebar__task-count">({taskCount})</span>
       </NavLink>
-      <SectionHeader title={"Your lists"} />
+      <SectionHeader title="Your lists" />
       <ul className="list-of-lists">
         {lists.map((l) => (
           <ListItem list={l} key={l.id} />

@@ -18,6 +18,10 @@
   margin-bottom: 80px;
   color: inherit;
   text-decoration: none;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 0 7px;
 }
 
 .sidebar__today:hover {
@@ -35,8 +39,7 @@
   font-size: 250%;
 }
 
-.sidebar .active {
-  padding: 0 7px;  
+.sidebar .active {  
   background-color: #d3d6db;
   border-radius: 5px;
 }
