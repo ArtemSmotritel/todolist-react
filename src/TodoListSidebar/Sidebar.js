@@ -3,6 +3,7 @@ import SectionHeader from "../SharedComponents/SectionHeader";
 import ListItem from "./ListItem";
 import "./Sidebar.css";
 import { getLists } from "../serverFunctions";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar(params) {
   const { onListIdChange, onTodayTasks } = params,
@@ -22,9 +23,9 @@ export default function Sidebar(params) {
   return (
     <aside className="sidebar">
       <h1 className="sidebar__main-header">TODO list</h1>
-      <span className="sidebar__today" onClick={onTodayTasks}>
+      <NavLink className="sidebar__today" to={"/today"}>
         Tasks for today
-      </span>
+      </NavLink>      
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
         {lists.map((l) => (

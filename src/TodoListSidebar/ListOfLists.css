@@ -28,19 +28,14 @@
 .list-of-lists__link {
   cursor: crosshair;
   text-decoration: none;
+  color: inherit;
+  
+  display: flex;
+  justify-content: space-between;
 }
 
 .active {
-  padding: 3px 3px 3px 7px;
+  padding: 3px 7px;  
   background-color: #d3d6db;
   border-radius: 5px;
-}
-
-.active ~ .list-of-lists__task-count {
-  padding: 3px 5px;
-}
-
-.list-of-lists__item {
-  display: flex;
-  justify-content: space-between;
 }

@@ -23,15 +23,13 @@ export default function App() {
 
   return (
     <>
-      <Sidebar
-        onListIdChange={setListId}
-        onTodayTasks={onTodayTasks}        
-      />
+      <Sidebar onListIdChange={setListId} onTodayTasks={onTodayTasks} />
       <main>
         <Routes>
           <Route path="todo-list/">
             <Route path=":id" element={<List />}></Route>
           </Route>
+          <Route path="today" element={<List />} />
         </Routes>
         <NewTaskForm onAddTask={onAddTask} />
       </main>

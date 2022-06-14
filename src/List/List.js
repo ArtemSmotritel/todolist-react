@@ -7,18 +7,20 @@ import {
   getListById,
   updateTaskOnServer,
   deleteTaskOnServer,
+  getListOrToday
 } from "../serverFunctions";
 import { useParams } from "react-router-dom";
 
 export default function List() {
   const params = useParams();
+  console.log(params);
   const { id } = params;
   const [list, setList] = useState([]),
     [showDone, setShowDone] = useState(false),
     [title, setTitle] = useState("Undone tasks");
 
-  const updateCurrentList = async (listId) => {
-    const newList = await getListById(listId);
+  const updateCurrentList = async (listId) => {    
+    const newList = await getListOrToday(listId);
     setList(newList);
   };
 

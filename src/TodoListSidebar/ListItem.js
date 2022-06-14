@@ -7,8 +7,8 @@ export default function ListItem({ list }) {
     <li className={"list-of-lists__item"} id={`list-${id}`}>
       <NavLink className="list-of-lists__link" to={`/todo-list/${id}`}>
         {name}
+        <span className="list-of-lists__task-count">({tasks_count})</span>
       </NavLink>
-      <span className="list-of-lists__task-count">({tasks_count})</span>
     </li>
   );
 }
