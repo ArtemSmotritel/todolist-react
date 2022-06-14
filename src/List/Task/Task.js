@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
 
@@ -63,7 +64,11 @@ export default function Task(params) {
           </span>
         </p>
       )}
-      {task.list_name && <p className="task__list_name">{task.list_name}</p>}
+      {task.list_name && (
+        <NavLink className="task__list_name" to={`/todo-list/${task.list_id}`}>
+          {task.list_name}
+        </NavLink>
+      )}
     </section>
   );
 }

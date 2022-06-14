@@ -6,7 +6,7 @@ import { getLists } from "../serverFunctions";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar(params) {
-  const { onListIdChange, onTodayTasks } = params,
+  const { onListIdChange } = params,
     [lists, setLists] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Sidebar(params) {
       <h1 className="sidebar__main-header">TODO list</h1>
       <NavLink className="sidebar__today" to={"/today"}>
         Tasks for today
-      </NavLink>      
+      </NavLink>
       <SectionHeader title={"Your lists"} />
       <ul className="list-of-lists" onClick={handleListChange}>
         {lists.map((l) => (

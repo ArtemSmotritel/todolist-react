@@ -34,3 +34,9 @@
 .sidebar__main-header {
   font-size: 250%;
 }
+
+.sidebar .active {
+  padding: 0 7px;  
+  background-color: #d3d6db;
+  border-radius: 5px;
+}
