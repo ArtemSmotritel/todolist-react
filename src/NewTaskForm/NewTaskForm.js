@@ -30,11 +30,11 @@ export default function Form(params) {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <img
+      {/* <img
         src={removeImg}
         alt="hide-form button"
         className="add-task-form__hide-form"
-      />
+      /> */}
       <div className="add-task-form__container">
         <div className="add-task-form__name-container">
           <label htmlFor="task-name" className="add-task-form__name-label">
