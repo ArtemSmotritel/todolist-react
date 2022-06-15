@@ -18,5 +18,5 @@ export default function TodayTaskPage() {
     getData(listId);
   }, [listId]);
 
-  return <List list={list} title={data.name} setList={setList}/>;
+  return <List data={data}/>;
 }
