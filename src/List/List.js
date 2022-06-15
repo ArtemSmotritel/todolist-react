@@ -2,18 +2,21 @@ import SectionHeader from "../SharedComponents/SectionHeader";
 import EmptyBox from "../SharedComponents/EmptyBox";
 import Task from "./Task/Task";
 import "./List.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateTaskOnServer, deleteTaskOnServer } from "../serverFunctions";
 
 export default function List(params) {
-  // const { list, title, setList } = params;
-  const {data} = params;
+  const { data } = params;
   const [list, setList] = useState(data.tasks ?? []);
-  const [title, setTitle] = useState(data.name ?? '');
+  const [title, setTitle] = useState(data.name ?? "");
   const [showDone, setShowDone] = useState(false);
 
-  const toggleDoneTasks = (e) => {
-    console.log('here');
+  useEffect(() => {
+    setList(data.tasks);
+    setTitle(data.name);
+  }, [data]);
+
+  const toggleDoneTasks = (e) => {    
     const showAllTasks = e.target.checked;
     setShowDone(showAllTasks);
   };
