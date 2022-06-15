@@ -16,12 +16,13 @@ const formatDate = (dueDateStringOrDate) => {
 };
 
 export default function Task(params) {
-  const { task, onDelete, onCheck } = params;
+  const { task, onDelete, onCheck } = params,
+    { id, done, description, name, due_date, list_id, list_name } = task;
 
   return (
-    <section className={`task ${task.done && "task_done"}`} id={task.id}>
+    <section className={`task ${done && "task_done"}`} id={id}>
       <img
-        onClick={() => onDelete(task.id)}
+        onClick={() => onDelete(id)}
         src={deleteImg}
         alt="a trash can to delete the task"
         className="task__delete"
@@ -32,27 +33,27 @@ export default function Task(params) {
           name="done"
           className="task__checkbox"
           id="task-1"
-          onChange={() => onCheck(task.id, !task.done)}
-          checked={task.done}
+          onChange={() => onCheck(id, !done)}
+          checked={done}
         ></input>
         <label className="task__name" htmlFor="task-1">
-          {task.name}
+          {name}
         </label>
       </div>
-      {task.description && (
-        <p className="task__description">{task.description}</p>
+      {description && (
+        <p className="task__description">{description}</p>
       )}
-      {task.due_date && (
+      {due_date && (
         <p className="task__date">
-          Due date:{' '}
-          <span className={"task__due-date" + isOverdue(task.due_date)}>
-            {formatDate(task.due_date)}
+          Due date:{" "}
+          <span className={"task__due-date" + isOverdue(due_date)}>
+            {formatDate(due_date)}
           </span>
         </p>
       )}
-      {task.list_name && (
-        <NavLink className="task__list_name" to={`/todo-list/${task.list_id}`}>
-          {task.list_name}
+      {list_name && (
+        <NavLink className="task__list_name" to={`/todo-list/${list_id}`}>
+          {list_name}
         </NavLink>
       )}
     </section>
