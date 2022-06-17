@@ -1,18 +1,24 @@
-import "./NewTaskForm.css";
 import React, { useState } from "react";
 
+import { useDispatch } from "react-redux";
+
+import { addTask } from "../store/tasks/reducer";
+
+import "./NewTaskForm.css";
+
 export default function Form(params) {
-  const { onAddTask } = params,
-    [task, setTask] = useState({});
+  const { listId } = params,
+    [task, setTask] = useState({}),
+    dispatch = useDispatch();
 
   const resetForm = () => {
     setTask({});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => {    
     e.preventDefault();
-    const { name, description, dueDate } = task;
-    onAddTask({ name, description, due_date: dueDate });
+    task.list_id = listId;    
+    dispatch(addTask({ task, listId }));
     resetForm();
   };
 
@@ -57,7 +63,7 @@ export default function Form(params) {
             id="task-due-date"
             className="add-task-form__due-date-field"
             placeholder="due date"
-            name="dueDate"
+            name="due_date"
             value={task.dueDate || ""}
             onChange={trackInput}
           />
