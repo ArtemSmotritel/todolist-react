@@ -13,8 +13,8 @@ import { fetchDashboard } from "../store/dashboard/reducer";
 export default function Sidebar() {
   const dispatch = useDispatch();
 
-  const lists = useSelector((state) => state.dashboard.lists) || [];
-  const taskCount = useSelector((state) => state.dashboard.today) || 0;
+  const lists = useSelector((state) => state.dashboard.lists);
+  const taskCount = useSelector((state) => state.dashboard.today);
 
   useEffect(() => {
     dispatch(fetchDashboard());
