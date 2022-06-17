@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
+import { getPayload } from "../List/Task/Task";
+import { incTaskCount } from "../store/dashboard/reducer";
 
 import { addTask } from "../store/tasks/reducer";
 
@@ -15,10 +17,12 @@ export default function Form(params) {
     setTask({});
   };
 
-  const handleSubmit = (e) => {    
+  const handleSubmit = (e) => {
     e.preventDefault();
-    task.list_id = listId;    
+    task.list_id = listId;
+    task.done = false;
     dispatch(addTask({ task, listId }));
+    dispatch(incTaskCount(getPayload(listId, task.due_date)));
     resetForm();
   };
 

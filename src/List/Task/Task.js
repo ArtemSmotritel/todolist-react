@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import { NavLink } from "react-router-dom";
+import { decrTaskCount, incTaskCount } from "../../store/dashboard/reducer";
 import { checkTask, deleteTask } from "../../store/tasks/reducer";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
@@ -9,14 +10,18 @@ const isOverdue = (dueDateStringOrDate) => {
   const today = new Date();
   const dueDate = dueDateStringOrDate && new Date(dueDateStringOrDate);
 
-  if (!dueDate || dueDate.setHours(23, 59, 59) >= today) return "";
-  return " task__date_overdue";
+  if (!dueDate || dueDate.setHours(23, 59, 59) >= today) return false;
+  return true;
 };
 
 const formatDate = (dueDateStringOrDate) => {
   if (!dueDateStringOrDate) return "";
   return Intl.DateTimeFormat("en-US").format(new Date(dueDateStringOrDate));
 };
+
+export const getPayload = (list_id, due_date) => {
+  return {list_id, forToday: isOverdue(due_date) || new Date(due_date).toDateString() === new Date().toDateString()}
+} 
 
 export default function Task({ task }) {
   const { id, done, description, name, due_date, list_id, list_name } = task;
@@ -26,7 +31,10 @@ export default function Task({ task }) {
   return (
     <section className={`task ${done && "task_done"}`} id={id}>
       <img
-        onClick={() => dispatch(deleteTask(id))}
+        onClick={() => {
+          dispatch(deleteTask(id));
+          if (!done) dispatch(decrTaskCount(getPayload(list_id, due_date)));
+        }}
         src={deleteImg}
         alt="a trash can to delete the task"
         className="task__delete"
@@ -37,7 +45,12 @@ export default function Task({ task }) {
           name="done"
           className="task__checkbox"
           id="task-1"
-          onChange={() => dispatch(checkTask({ id, newDone: !done }))}
+          onChange={() => {
+            dispatch(checkTask({ id, newDone: !done }));
+            !done
+              ? dispatch(decrTaskCount(getPayload(list_id, due_date)))
+              : dispatch(incTaskCount(getPayload(list_id, due_date)));
+          }}
           checked={done}
         ></input>
         <label className="task__name" htmlFor="task-1">
@@ -48,7 +61,7 @@ export default function Task({ task }) {
       {due_date && (
         <p className="task__date">
           Due date:{" "}
-          <span className={"task__due-date" + isOverdue(due_date)}>
+          <span className={`task__due-date ${isOverdue(due_date) && "task__date_overdue"}`}>
             {formatDate(due_date)}
           </span>
         </p>

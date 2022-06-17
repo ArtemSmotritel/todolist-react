@@ -31,17 +31,19 @@ export default function List() {
   return (
     <section className={`list ${showDone && "list_show-done"}`}>
       <SectionHeader title={title} />
-      <div className="list__checkbox-container">
-        <input
-          className="list__checkbox"
-          type="checkbox"
-          id="list-toggle"
-          onChange={toggleDoneTasks}
-        ></input>
-        <label className="list__checkbox-label" htmlFor="list-toggle">
-          Show all tasks
-        </label>
-      </div>
+      {listId && (
+        <div className="list__checkbox-container">
+          <input
+            className="list__checkbox"
+            type="checkbox"
+            id="list-toggle"
+            onChange={toggleDoneTasks}
+          ></input>
+          <label className="list__checkbox-label" htmlFor="list-toggle">
+            Show all tasks
+          </label>
+        </div>
+      )}
       <section className="list__tasks">
         {list && list.length ? (
           list.map((t) => <Task task={t} key={t.id} />)

@@ -50,6 +50,7 @@ async function updateTaskOnServer(id, updatedFields) {
 async function deleteTaskOnServer(id) {
   try {
     await makeRequest(urlTaskId(id), "delete");
+    return id;
   } catch (error) {
     throw new Error(
       "Something went very wrong on the server. Cannot delete this task"

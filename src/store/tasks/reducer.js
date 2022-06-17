@@ -27,7 +27,7 @@ export const checkTask = createAsyncThunk(
 export const deleteTask = createAsyncThunk(TASK_DELETE, deleteTaskOnServer);
 
 export const addTask = createAsyncThunk(TASK_ADD, async ({ task, listId }) => {
-  const id = await addTaskOnServer(task, listId);
+  const { id } = await addTaskOnServer(task, listId);  
   task.id = id;
   return task;
 });
