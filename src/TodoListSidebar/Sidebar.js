@@ -1,20 +1,24 @@
-import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { NavLink } from "react-router-dom";
+
+import { useEffect } from "react";
+
 import SectionHeader from "../SharedComponents/SectionHeader";
 import ListItem from "./ListItem";
 import "./Sidebar.css";
-import { getLists } from "../serverFunctions";
-import { NavLink } from "react-router-dom";
 
-export default function Sidebar(params) {
-  const [lists, setLists] = useState([]),
-    [taskCount, setTaskCount] = useState(0);
+import { fetchDashboard } from "../store/dashboard/reducer";
+
+export default function Sidebar() {
+  const dispatch = useDispatch();
+
+  const lists = useSelector((state) => state.dashboard.lists) || [];
+  const taskCount = useSelector((state) => state.dashboard.today) || 0;
 
   useEffect(() => {
-    getLists().then((data) => {
-      setLists(data.undone_tasks_by_list);
-      setTaskCount(data.tasks_for_today);
-    });
-  }, []);
+    dispatch(fetchDashboard());
+  }, [dispatch]);
 
   return (
     <aside className="sidebar">
