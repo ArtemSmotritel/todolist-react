@@ -1,4 +1,7 @@
+import { useDispatch } from "react-redux";
+
 import { NavLink } from "react-router-dom";
+import { checkTask, deleteTask } from "../../store/tasks/reducer";
 import "./Task.css";
 import deleteImg from "./trash-bin.png";
 
@@ -15,14 +18,15 @@ const formatDate = (dueDateStringOrDate) => {
   return Intl.DateTimeFormat("en-US").format(new Date(dueDateStringOrDate));
 };
 
-export default function Task(params) {
-  const { task, onDelete, onCheck } = params,
-    { id, done, description, name, due_date, list_id, list_name } = task;
+export default function Task({ task }) {
+  const { id, done, description, name, due_date, list_id, list_name } = task;
+
+  const dispatch = useDispatch();
 
   return (
     <section className={`task ${done && "task_done"}`} id={id}>
       <img
-        onClick={() => onDelete(id)}
+        onClick={() => dispatch(deleteTask(id))}
         src={deleteImg}
         alt="a trash can to delete the task"
         className="task__delete"
@@ -33,16 +37,14 @@ export default function Task(params) {
           name="done"
           className="task__checkbox"
           id="task-1"
-          onChange={() => onCheck(id, !done)}
+          onChange={() => dispatch(checkTask({ id, newDone: !done }))}
           checked={done}
         ></input>
         <label className="task__name" htmlFor="task-1">
           {name}
         </label>
       </div>
-      {description && (
-        <p className="task__description">{description}</p>
-      )}
+      {description && <p className="task__description">{description}</p>}
       {due_date && (
         <p className="task__date">
           Due date:{" "}

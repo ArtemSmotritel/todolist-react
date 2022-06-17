@@ -1,36 +1,31 @@
+import { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useParams } from "react-router-dom";
+
+import { getTasks } from "../store/tasks/reducer";
+
 import SectionHeader from "../SharedComponents/SectionHeader";
 import EmptyBox from "../SharedComponents/EmptyBox";
 import Task from "./Task/Task";
 import "./List.css";
-import { useState, useEffect } from "react";
-import { updateTaskOnServer, deleteTaskOnServer } from "../serverFunctions";
 
-export default function List(params) {
-  const { data } = params;
-  const [list, setList] = useState(data.tasks ?? []);
-  const [title, setTitle] = useState(data.name ?? "");
-  const [showDone, setShowDone] = useState(false);
+export default function List() {
+  const [showDone, setShowDone] = useState(false),
+    { id: listId } = useParams(),
+    dispatch = useDispatch();
+
+  const list = useSelector((state) => state.list.tasks);
+  const title = useSelector((state) => state.list.name);
 
   useEffect(() => {
-    setList(data.tasks);
-    setTitle(data.name);
-  }, [data]);
+    dispatch(getTasks(listId));
+  }, [listId, dispatch]);
 
-  const toggleDoneTasks = (e) => {    
+  const toggleDoneTasks = (e) => {
     const showAllTasks = e.target.checked;
     setShowDone(showAllTasks);
-  };
-
-  const onTaskDelete = async (taskId) => {
-    await deleteTaskOnServer(taskId);
-    setList(list.filter((t) => t.id !== taskId));
-  };
-
-  const onTaskCheck = async (taskId, newDone) => {
-    await updateTaskOnServer(taskId, { done: newDone });
-    const task = list.find((t) => t.id === taskId);
-    task.done = newDone;
-    setList([...list]);
   };
 
   return (
@@ -49,14 +44,7 @@ export default function List(params) {
       </div>
       <section className="list__tasks">
         {list && list.length ? (
-          list.map((t) => (
-            <Task
-              task={t}
-              key={t.id}
-              onDelete={onTaskDelete}
-              onCheck={onTaskCheck}
-            />
-          ))
+          list.map((t) => <Task task={t} key={t.id} />)
         ) : (
           <EmptyBox
             className="list__empty"
